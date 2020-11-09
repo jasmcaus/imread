@@ -26,9 +26,9 @@ class build_ext(_build_ext):
 def has_webp():
     return os.system("pkg-config --exists libwebp") == 0
 
-exec(compile(open('imread/imread_version.py').read(),
-             'imread/imread_version.py', 'exec'))
-long_description = open('README.rst').read()
+exec(compile(open('caerimread/version.py').read(),
+             'caerimread/version.py', 'exec'))
+long_description = open('README.md').read()
 
 undef_macros = []
 define_macros = []
@@ -37,7 +37,7 @@ if os.environ.get('DEBUG'):
     if os.environ.get('DEBUG') == '2':
         define_macros.append( ('_GLIBCXX_DEBUG','1') )
 define_macros.append(('NPY_NO_DEPRECATED_API','NPY_1_7_API_VERSION'))
-define_macros.append(('PY_ARRAY_UNIQUE_SYMBOL','MahotasImread_PyArray_API_Symbol'))
+define_macros.append(('PY_ARRAY_UNIQUE_SYMBOL','CaerImread_PyArray_API_Symbol'))
 
 
 EXCLUDE_WEBP = os.environ.get('EXCLUDE_WEBP')
@@ -59,15 +59,15 @@ for pth in ('/usr/local/lib', '/usr/X11/lib'):
         library_dirs.append(pth)
 
 extensions = {
-    'imread._imread': [
-        'imread/_imread.cpp',
-        'imread/lib/formats.cpp',
-        'imread/lib/numpy.cpp',
-        'imread/lib/_bmp.cpp',
-        'imread/lib/_jpeg.cpp',
-        'imread/lib/_lsm.cpp',
-        'imread/lib/_png.cpp',
-        'imread/lib/_tiff.cpp',
+    'caerimread.cimread': [
+        'caerimread/cimread.cpp',
+        'caerimread/includes/formats.cpp',
+        'caerimread/includes/numpy.cpp',
+        'caerimread/includes/cbmp.cpp',
+        'caerimread/includes/cjpeg.cpp',
+        'caerimread/includes/clsm.cpp',
+        'caerimread/includes/cpng.cpp',
+        'caerimread/includes/ctiff.cpp',
         ],
 }
 
@@ -77,7 +77,7 @@ if sys.platform.startswith('win'):
     libraries.append('zlib')
 
 if not EXCLUDE_WEBP:
-    extensions['imread._imread'].append('imread/lib/_webp.cpp')
+    extensions['imread.cimread'].append('imread/includes/cwebp.cpp')
     libraries.append('webp')
 
 extra_args = []
