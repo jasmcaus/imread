@@ -1,22 +1,17 @@
-# -*- coding: utf-8 -*-
-# vim: set ts=4 sts=4 sw=4 expandtab smartindent:
-# Copyright (C) 2012-2020, Luis Pedro Coelho <luis@luispedro.org>
-# License: MIT
+# Copyright 2020 The Caer Authors. All Rights Reserved.
+#
+# Licensed under the MIT License (see LICENSE);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at <https://opensource.org/licenses/MIT>
+#
+# ==============================================================================
 
 from glob import glob
 import platform
 import sys
-
-try:
-    import setuptools
-except:
-    print('''
-setuptools not found.
-
-On linux, the package is often called python-setuptools''')
-    sys.exit(1)
-
+import setuptools
 import os
+from .caerimread import __version__
 
 from setuptools.command.build_ext import build_ext as _build_ext
 # Based on http://stackoverflow.com/questions/19919905/how-to-bootstrap-numpy-installation-in-setup-py
@@ -105,53 +100,41 @@ ext_modules = [
 
 packages = setuptools.find_packages()
 
-package_dir = {
-    'imread.tests': 'imread/tests',
-    }
-package_data = {
-    'imread.tests': ['data/*',
-            'data/bad-files/*/*.tiff',
-            'data/bad-files/BMP/*/*.bmp',
-            'data/bad-files/LSM/*/*.lsm']
-    }
 
 classifiers = [
-'Development Status :: 4 - Beta',
-'Intended Audience :: Developers',
-'Intended Audience :: Science/Research',
-'Topic :: Multimedia',
-'Topic :: Scientific/Engineering :: Image Recognition',
-'Topic :: Software Development :: Libraries',
-'Programming Language :: Python',
-'Programming Language :: Python :: 2',
-'Programming Language :: Python :: 2.7',
-'Programming Language :: Python :: 3',
-'Programming Language :: Python :: 3.3',
-'Programming Language :: Python :: 3.4',
-'Programming Language :: Python :: 3.5',
-'Programming Language :: Python :: 3.6',
-'Programming Language :: Python :: 3.7',
-'Programming Language :: C++',
-'License :: OSI Approved :: MIT License',
+    'Development Status :: 4 - Beta',
+    'Intended Audience :: Developers',
+    'Intended Audience :: Science/Research',
+    'Topic :: Multimedia',
+    'Topic :: Scientific/Engineering :: Image Recognition',
+    'Topic :: Software Development :: Libraries',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.3',
+    'Programming Language :: Python :: 3.4',
+    'Programming Language :: Python :: 3.5',
+    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: C++',
+    'License :: OSI Approved :: MIT License'
 ]
 
-setuptools.setup(name = 'imread',
-      version = __version__,
-      description = 'imread: Image reading library',
-      long_description = long_description,
-      long_description_content_type = 'text/x-rst',
-      author = 'Luis Pedro Coelho',
-      author_email = 'luis@luispedro.org',
-      license = 'MIT',
-      platforms = ['Any'],
-      classifiers = classifiers,
-      url = 'http://luispedro.org/software/imread',
-      packages = packages,
-      ext_modules = ext_modules,
-      package_dir = package_dir,
-      package_data = package_data,
-      cmdclass = {'build_ext': build_ext},
-      setup_requires = ['numpy'],
-      install_requires = ['numpy'],
-      test_suite = 'nose.collector',
-      )
+if __name__ == '__main__':
+    setuptools.setup(
+        name = 'caerimread',
+        version = __version__,
+        description = 'imread: Image reading library',
+        long_description = long_description,
+        long_description_content_type = 'text/x-rst',
+        author = 'Jason Dsouza',
+        author_email = 'jasmcaus@gmail.com',
+        license = 'MIT',
+        platforms = ['Any'],
+        classifiers = classifiers,
+        url = 'https://github.com/jasmcaus/imread',
+        packages = packages,
+        ext_modules = ext_modules,
+        cmdclass = {'build_ext': build_ext},
+        setup_requires = ['numpy'],
+        install_requires = ['numpy'],
+    )
