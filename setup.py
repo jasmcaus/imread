@@ -11,7 +11,7 @@ import platform
 import sys
 import setuptools
 import os
-from .caerimread import __version__
+from caerimread import __version__
 
 from setuptools.command.build_ext import build_ext as _build_ext
 # Based on http://stackoverflow.com/questions/19919905/how-to-bootstrap-numpy-installation-in-setup-py
